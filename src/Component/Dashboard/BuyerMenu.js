@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DashboardHome = () => {
+const BuyerMenu = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const DashboardHome = () => {
     );
 };
 
-export default DashboardHome;
+export default BuyerMenu;

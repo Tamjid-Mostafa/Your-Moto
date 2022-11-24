@@ -69,12 +69,11 @@ const Header = () => {
     }
   }, [theme]);
 
-
   darkQuery.addEventListener("change", (e) => {
     if (!("theme" in localStorage)) {
       if (e.matches) {
         element.classList.add("dark");
-      }else{
+      } else {
         element.classList.remove("dark");
       }
     }
@@ -84,9 +83,17 @@ const Header = () => {
 
   return (
     <>
-      <Navbar className="fixed top-0 left-0 z-20 w-full transition-all ease-in" fluid={true} rounded={false}>
+      <Navbar
+        className="fixed top-0 left-0 z-20 w-full transition-all ease-in"
+        fluid={true}
+        rounded={false}
+      >
         <Navbar.Brand>
-          <img src={`${HTML === "hydrated"  ? logoBlack :logoLight}`} className="mr-3 h-6 sm:h-9" alt="Your Moto Logo" />
+          <img
+            src={`${HTML === "hydrated" ? logoBlack : logoLight}`}
+            className="mr-3 h-6 sm:h-9"
+            alt="Your Moto Logo"
+          />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             <Link to="/">Your Moto</Link>
           </span>
@@ -124,9 +131,9 @@ const Header = () => {
                 </span>
               )}
             </Dropdown.Header>
-            <Dropdown.Item>Dashboard</Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Item>My Reviwes</Dropdown.Item>
+            <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>
+            <Dropdown.Item>My Sell Post</Dropdown.Item>
+            <Dropdown.Item>My Orders</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleLogout}>Log Out</Dropdown.Item>
           </Dropdown>
@@ -150,7 +157,11 @@ const Header = () => {
             <Link to="/">Home</Link>
           </Navbar.Link>
           <Navbar.Link>
-            <Link to="/all_services">Services</Link>
+            <Dropdown dismissOnClick={false}>
+              <Dropdown.Item>Settings</Dropdown.Item>
+              <Dropdown.Item>Earnings</Dropdown.Item>
+              <Dropdown.Item>Sign out</Dropdown.Item>
+            </Dropdown>
           </Navbar.Link>
           <Navbar.Link>
             <Link to="/my_reviews">My Reviews</Link>

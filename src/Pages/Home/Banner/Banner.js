@@ -1,5 +1,5 @@
 import React from 'react';
-import image from "../../assets/images/men&motorcycle.jpg";
+import image from "../../../assets/images/men&motorcycle.jpg";
 
 const Banner = () => {const myStyle = {
     minHeight: "400px",
