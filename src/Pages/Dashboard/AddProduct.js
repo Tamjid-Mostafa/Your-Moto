@@ -1,12 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import PrimaryButton from "../../Component/Button/PrimaryButton";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const AddProduct = () => {
+    const {user} = useContext(AuthContext);
   const [signupError, setSignupError] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
@@ -56,7 +58,9 @@ const AddProduct = () => {
             description: data.description,
             location: data.location,
             image: imageData.data.url,
-            postedTime: time
+            postedTime: time,
+            
+
           };
           /* -----Save product to the----- */
           axios
