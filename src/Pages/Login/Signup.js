@@ -49,7 +49,7 @@ const Signup = () => {
     const image = data.image[0];
     const formData = new FormData();
     formData.append("image", image);
-    const url = `https://api.imgbb.com/1/upload?key=${'527cb8c6aafc33970b1b5fa05f4bc3ac'}`
+    const url = `https://api.imgbb.com/1/upload?key=527cb8c6aafc33970b1b5fa05f4bc3ac`
     console.log(url);
     fetch(url, {
       method: "POST",
@@ -57,6 +57,26 @@ const Signup = () => {
     })
     .then(res => res.json())
     .then(imageData => {
+
+      /* ----Create USer--- */
+      providerCreateUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        const userInfo = {
+          displayName: data.name,
+          photoURL: imageData.data.display_url
+        };
+        updateUserProfile(userInfo)
+          .then(() => {
+            
+          })
+          .catch((err) => {
+            console.error(err);
+            setSignupError(err.message);
+          });
+      
+
       if(imageData.success){
         const userInfo = {
           name: data.name,
@@ -72,37 +92,16 @@ const Signup = () => {
         )
         .then(res => {
           toast.success(`${userInfo.name} is added successfully`);
-
+          navigate(from, { replace: true });
 
         })
         .catch(err => {
           console.error(err);
-          
-          /* navigate('/dashboard/managedoctors') */
         })
       }
-
     })
-    
-    /* ----Create USer--- */
-    providerCreateUser(data.email, data.password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        toast("User Created Successfully");
-        const userInfo = {
-          displayName: data.name,
-        };
-        updateUserProfile(userInfo)
-          .then(() => {
-            navigate("/");
-          })
-          .catch((err) => {
-            console.error(err);
-            setSignupError(err.message);
-          });
-      })
-      .catch((error) => console.error(error));
+    .catch((error) => console.error(error));
+    })
   };
 
 

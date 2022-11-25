@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { BsGoogle } from "react-icons/bs";
+import PrimaryButton from "../../Component/Button/PrimaryButton";
 
 const Login = () => {
   const { 
@@ -58,6 +59,7 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         setLoginUserEmail(data.email);
+        navigate(from, {replace: true});
       })
       .catch((error) => {
         console.error(error);
@@ -143,11 +145,13 @@ const Login = () => {
                 </div>
 
                 <div>
-                  <button className="w-full rounded-full bg-sky-500 dark:bg-sky-400 h-11 flex items-center justify-center px-6 py-3 transition hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800">
+                <div>
+                  <PrimaryButton className="w-11">
                     <span className="text-base font-semibold text-white dark:text-gray-900">
-                      Login
+                      Log In
                     </span>
-                  </button>
+                  </PrimaryButton>
+                </div>
                   <button href="#" type="reset" className="-ml-3 w-max p-3">
                     <Link to='/signup' className="text-sm tracking-wide text-sky-600 dark:text-sky-400">
                       Create new account
