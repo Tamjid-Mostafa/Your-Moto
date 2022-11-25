@@ -84,7 +84,7 @@ const Header = () => {
   return (
     <>
       <Navbar
-        className="fixed top-0 left-0 z-20 w-full transition-all ease-in"
+        className=""
         fluid={true}
         rounded={false}
       >
@@ -156,21 +156,15 @@ const Header = () => {
           <Navbar.Link to="/" active={true}>
             <Link to="/">Home</Link>
           </Navbar.Link>
+          
           <Navbar.Link>
-            <Dropdown dismissOnClick={false}>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
-              <Dropdown.Item>Sign out</Dropdown.Item>
-            </Dropdown>
-          </Navbar.Link>
-          <Navbar.Link>
-            <Link to="/my_reviews">My Reviews</Link>
+            <Link to="/categories">Categories</Link>
           </Navbar.Link>
 
           {user?.uid ? (
             <>
               <Navbar.Link>
-                <Link to="/add_services">Add Services</Link>
+                <Link to="/dashboard">Dashboard</Link>
               </Navbar.Link>
               <Navbar.Link>
                 <Link to="/blogs">Blogs</Link>

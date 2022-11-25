@@ -1,33 +1,28 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import React from "react";
-import CategoryCard from "./CategoryCard";
+import CategoryCard from "../../../Component/Card/CategoryCard";
+import Loader from "../../../Component/Loader/Loader";
 
 const Categories = () => {
-  const categoriesCard = [
-    {
-      id: 1,
-      categoryName: "Sports",
-      image: "https://i.ibb.co/6NnHnJg/bmw1000rr.jpg",
-      details:
-        "Here we have listed out the top-ranked sports motorcycles holding different engine sizes. These are currently available in the market from the various brands ...",
-      bgClass: "",
+  
+  const url = `http://localhost:5000/categories`;
+
+
+  /* Load Categories  */
+  const { data: categories = [],
+    isLoading,
+   } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const res = await axios.get(url);
+      return res.data;
     },
-    {
-      id: 2,
-      categoryName: "Naked Sports",
-      image: "https://i.ibb.co/F8smXKw/2022-Kawasaki-Z400.jpg",
-      details:
-        "Here we have listed out the top-ranked Naked Sports motorcycles holding different engine sizes. These are currently available in the market from the various brands ...",
-      bgClass: "",
-    },
-    {
-      id: 3,
-      categoryName: "Adventure",
-      image: "https://i.ibb.co/ScYbHBn/KTM-1290-SUPER-ADVENTURE-R.jpg",
-      details:
-        "Here we have listed out the top-ranked Adventure motorcycles holding different engine sizes. These are currently available in the market from the various brands ...",
-      bgClass: "",
-    },
-  ];
+  });
+  if (isLoading) {
+    return <Loader></Loader>;
+  }
+
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900">
@@ -41,9 +36,9 @@ const Categories = () => {
             </h2>
           </div>
           <div className="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-3">
-            {categoriesCard.map((categoryCard) => (
+            {categories.map((categoryCard) => (
               <CategoryCard
-                key={categoryCard.id}
+                key={categoryCard._id}
                 categoryCard={categoryCard}
               ></CategoryCard>
             ))}

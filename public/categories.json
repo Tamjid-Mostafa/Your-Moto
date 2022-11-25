@@ -2,22 +2,23 @@
     {
         "categoryName": "Sports",
         "image": "https://i.ibb.co/6NnHnJg/bmw1000rr.jpg",
-        "details" : "Here we have listed out the top-ranked sports motorcycles holding different engine sizes. These are currently available in the market from the various brands ..."
-    },
-    {
+        "details":
+          "Here we have listed out the top-ranked sports motorcycles holding different engine sizes. These are currently available in the market from the various brands ...",
+        "bgClass": ""
+      },
+      {
         "categoryName": "Naked Sports",
         "image": "https://i.ibb.co/F8smXKw/2022-Kawasaki-Z400.jpg",
-        "details" : "Sports bikes without Fairing of body kit available right now. All this Naked Sports motorcycles  Price in the market from the various brands ...."
-    },
-    {
+        "details":
+          "Here we have listed out the top-ranked Naked Sports motorcycles holding different engine sizes. These are currently available in the market from the various brands ...",
+        "bgClass": ""
+      },
+      {
         "categoryName": "Adventure",
         "image": "https://i.ibb.co/ScYbHBn/KTM-1290-SUPER-ADVENTURE-R.jpg",
-        "details" : "Here we have listed out the top-ranked Adventure motorcycles holding different engine sizes. These are currently available in the market from the various brands ..."
-    },
-    {
-        "categoryName": "Off-Road",
-        "image": "https://i.ibb.co/fMZBXd9/off-road.jpg",
-        "details" : "Here we have listed out the top-ranked Off-Road motorcycles holding different engine sizes. These are currently available in the market from the various brands ..."
-    }
+        "details":
+          "Here we have listed out the top-ranked Adventure motorcycles holding different engine sizes. These are currently available in the market from the various brands ...",
+        "bgClass": ""
+      }
     
 ]

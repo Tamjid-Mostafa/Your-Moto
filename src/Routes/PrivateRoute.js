@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
-import { PropagateLoader } from 'react-spinners'
+import Loader from '../Component/Loader/Loader'
 import { AuthContext } from '../contexts/AuthProvider'
 
 const PrivateRoute = ({ children }) => {
@@ -9,9 +9,7 @@ const PrivateRoute = ({ children }) => {
   console.log(loading)
   if (loading) {
     return (
-      <div className='h-screen'>
-        <PropagateLoader color="#36d7b7" />
-      </div>
+      <Loader/>
     )
   }
 

@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { BsGoogle } from "react-icons/bs";
 import PrimaryButton from "../../Component/Button/PrimaryButton";
+import axios from "axios";
 
 const Signup = () => {
   const { providerGoogleSignIn, providerCreateUser, updateUserProfile } =
@@ -60,10 +61,27 @@ const Signup = () => {
         const userInfo = {
           name: data.name,
           email: data.email,
-          buyer_or_seller: data.buyer_or_seller,
+          role: data.buyer_or_seller,
           image: imageData.data.url
         }
+        console.log(userInfo)
+        // save user information to the database
+        axios.post('http://localhost:5000/users', 
+          
+          userInfo
+        )
+        .then(res => {
+          toast.success(`${userInfo.name} is added successfully`);
+
+
+        })
+        .catch(err => {
+          console.error(err);
+          
+          /* navigate('/dashboard/managedoctors') */
+        })
       }
+
     })
     
     /* ----Create USer--- */
@@ -147,7 +165,7 @@ const Signup = () => {
                 </div>
                 <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                   <select
-                    {...register("Buyer_or_Seller", {
+                    {...register("buyer_or_seller", {
                       required: "User  is Required",
                     })}
                     className="focus:outline-none block w-full rounded-md border border-gray-200 dark:border-gray-600 bg-transparent px-4 py-3 text-gray-600 transition duration-300 invalid:ring-2 invalid:ring-red-400 focus:ring-2 focus:ring-cyan-300"

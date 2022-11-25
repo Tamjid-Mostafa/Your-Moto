@@ -1,10 +1,11 @@
 import { Sidebar } from 'flowbite-react';
 import React from 'react';
+import DashboardHome from '../Pages/Dashboard/DashboardHome';
 
 const DashboardLayout = () => {
     return (
         <div>
-            <Sidebar></Sidebar>
+            <DashboardHome></DashboardHome>
         </div>
     );
 };
