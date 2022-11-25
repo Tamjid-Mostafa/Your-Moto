@@ -1,11 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 import PrimaryButton from "../../Component/Button/PrimaryButton";
 
 const AddProduct = () => {
+  const [signupError, setSignupError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
   const {
     register,
     formState: { errors },
@@ -27,25 +33,44 @@ const AddProduct = () => {
     console.log(image);
     const formData = new FormData();
     formData.append("image", image);
-    const url = `https://api.imgbb.com/1/upload?key=${'527cb8c6aafc33970b1b5fa05f4bc3ac'}`;
+    const url = `https://api.imgbb.com/1/upload?key=${"527cb8c6aafc33970b1b5fa05f4bc3ac"}`;
     console.log(url);
     fetch(url, {
       method: "POST",
-      body: formData
+      body: formData,
     })
-    .then(res  => res.json())
-    .then(imageData => {
-        if(imageData.success){
-            console.log(imageData.data.url);
-            toast.success("uploaded")
-            const product = {
-                product_name: data.motorcycle_name,
-
-            }
-            /* -----Save product to the----- */
-            
+      .then((res) => res.json())
+      .then((imageData) => {
+        if (imageData.success) {
+          console.log(imageData.data.url);
+          toast.success("uploaded");
+          const time = new Date().toLocaleString();
+          console.log(time);
+          const product = {
+            product_name: data.motorcycle_name,
+            bike_type: data.category,
+            condition: data.condition,
+            resell_price: data.resell_price,
+            original_price: data.original_price,
+            mileage: data.mileage,
+            description: data.description,
+            location: data.location,
+            image: imageData.data.url,
+            postedTime: time
+          };
+          /* -----Save product to the----- */
+          axios
+            .post("http://localhost:5000/products", product)
+            .then((res) => {
+              toast.success(`${product.product_name} is added successfully`);
+            //   navigate(from, { replace: true });
+              console.log(res);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
         }
-    })
+      });
   };
 
   return (
@@ -196,6 +221,28 @@ const AddProduct = () => {
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full px-3">
                 <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Mileage
+                </label>
+                <input
+                  {...register("mileage", {
+                    required: "Please provide  Total Mileage",
+                  })}
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="grid-password"
+                  type="text"
+                  placeholder="2000 miles"
+                />
+                {errors.mileage && (
+                  <p className="text-red-500">{errors.mileage.message}</p>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full px-3">
+                <label
                   for="message"
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="description"
@@ -217,8 +264,8 @@ const AddProduct = () => {
                 )}
               </div>
             </div>
-            <div className="flex flex-wrap -mx-3 mb-2">
-              <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <div className="flex flex-wrap -mx-3 mb-4">
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="grid-city"
@@ -238,12 +285,12 @@ const AddProduct = () => {
                   <p className="text-red-500">{errors.location.message}</p>
                 )}
               </div>
-              <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="grid-zip"
                 >
-                  Upload your Bike Picture
+                  Upload Picture
                 </label>
                 <input
                   {...register("image", {

@@ -20,7 +20,7 @@ const CategoryCard = ({categoryCard}) => {
          {details}
         </p>
         <Link
-          to={`/categories/${_id}`}
+          to={`/categories/${categoryName}`}
           className="relative mx-auto flex h-10 w-10 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-100 dark:before:border-gray-600 before:transition before:duration-300 group-hover:before:scale-125"
         >
           <GoArrowRight className="text-primary text-4xl" />
