@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react"
+export const setAuthToken = user => {
+    const currentUser = {
+        email: user.email,
+    }
+    fetch(`http://localhost:8000/user/${user?.email}`, {
+        method: 'PUT',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(currentUser),
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          //Save token in LocalStorage
+          localStorage.setItem('yourMoto_token', data.token)
+        })
 
-const useToken = (email) => {
-    const [token, setToken] = useState("");
-    useEffect(()=> {
-        if(email){
-            fetch(``)
-            .then(res => res.json())
-            .then((data)=> {
-                if(data.accessToken) {
-                    localStorage.setItem('token', data.accessToken);
-                    setToken(data.accessToken);
-                }
-            })
-        }
-    }, [email]);
-    return [token];
-};
-export default useToken;
+}

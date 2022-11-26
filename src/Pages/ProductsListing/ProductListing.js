@@ -4,11 +4,6 @@ import ProductCard from "../../Component/Card/ProductCard";
 
 const ProductListing = () => {
   const products = useLoaderData();
-  console.log(products);
-
-  if(products.length <= 1){
-    const className = 'lg:grid-cols-1'
-  }
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">

@@ -15,7 +15,13 @@ const Categories = () => {
    } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const res = await axios.get(url);
+      const res = await axios.get(url, {
+        headers: {
+          'content-type' : 'application/json',
+          authorization: `bearer ${localStorage.getItem('accessToken')}`
+        }
+      });
+      console.log(res);
       return res.data;
     },
   });

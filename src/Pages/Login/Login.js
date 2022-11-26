@@ -18,8 +18,8 @@ const Login = () => {
 } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
 
-  const [loginUserEmail, setLoginUserEmail] = useState("");
-  //   const [token] = useToken(loginUserEmail);
+  // const [loginUserEmail, setLoginUserEmail] = useState("");
+  // const [token] = useToken(loginUserEmail);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -43,6 +43,7 @@ const Login = () => {
     providerGoogleSignIn(googleProvider)
       .then((result) => {
         const user = result.user;
+        console.log(user);
         toast.success("Log In Successfully.");
         navigate(from, { replace: true });
       })
@@ -57,8 +58,7 @@ const Login = () => {
     signIn(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
-        setLoginUserEmail(data.email);
+        console.log(user.email);
         navigate(from, {replace: true});
       })
       .catch((error) => {

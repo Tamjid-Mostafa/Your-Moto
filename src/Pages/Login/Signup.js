@@ -7,6 +7,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 import { BsGoogle } from "react-icons/bs";
 import PrimaryButton from "../../Component/Button/PrimaryButton";
 import axios from "axios";
+import useToken from "../../hook/useToken";
 
 const Signup = () => {
   const { providerGoogleSignIn, providerCreateUser, updateUserProfile } =
@@ -18,11 +19,11 @@ const Signup = () => {
   const from = location.state?.from?.pathname || "/";
 
   const [createdUserEmail, setCreatedUserEmail] = useState("");
-  //   const [token] = useToken(createdUserEmail);
+    const [token] = useToken(createdUserEmail);
 
-  //   if (token) {
-  //     navigate("/");
-  //   }
+    if (token) {
+      navigate("/");
+    }
 
   const {
     register,
@@ -50,7 +51,6 @@ const Signup = () => {
     const formData = new FormData();
     formData.append("image", image);
     const url = `https://api.imgbb.com/1/upload?key=527cb8c6aafc33970b1b5fa05f4bc3ac`
-    console.log(url);
     fetch(url, {
       method: "POST",
       body: formData
@@ -61,8 +61,7 @@ const Signup = () => {
       /* ----Create USer--- */
       providerCreateUser(data.email, data.password)
       .then((result) => {
-        const user = result.user;
-        console.log(user);
+        setCreatedUserEmail(data.email)
         const userInfo = {
           displayName: data.name,
           photoURL: imageData.data.display_url
@@ -84,14 +83,15 @@ const Signup = () => {
           role: data.buyer_or_seller,
           image: imageData.data.url
         }
-        console.log(userInfo)
         // save user information to the database
         axios.post('http://localhost:5000/users', 
           
           userInfo
         )
         .then(res => {
+          
           toast.success(`${userInfo.name} is added successfully`);
+          
           navigate(from, { replace: true });
 
         })
