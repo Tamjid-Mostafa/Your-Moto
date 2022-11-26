@@ -153,8 +153,8 @@ const Header = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link to="/" active={true}>
-            <Link to="/">Home</Link>
+          <Navbar.Link>
+          <Link to="/">Home</Link>
           </Navbar.Link>
           
           <Navbar.Link>

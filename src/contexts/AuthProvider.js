@@ -67,6 +67,7 @@ const AuthProvider = ({ children }) => {
 
   /* -----------Sign Out------------ */
   const providerSignOut = () => {
+    localStorage.removeItem('yourMoto-Token');
     setLoading(true);
     return signOut(auth);
   };

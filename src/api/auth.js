@@ -2,7 +2,7 @@ export const setAuthToken = user => {
     const currentUser = {
         email: user.email,
     }
-    fetch(`http://localhost:8000/user/${user?.email}`, {
+    fetch(`http://localhost:5000/user/${user?.email}`, {
         method: 'PUT',
         headers: {
           'content-type': 'application/json',
@@ -13,7 +13,7 @@ export const setAuthToken = user => {
         .then(data => {
           console.log(data)
           //Save token in LocalStorage
-          localStorage.setItem('yourMoto_token', data.token)
+          localStorage.setItem('yourMoto_Token', data.token)
         })
 
 }

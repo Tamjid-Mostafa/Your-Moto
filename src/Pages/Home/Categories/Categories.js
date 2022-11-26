@@ -18,7 +18,7 @@ const Categories = () => {
       const res = await axios.get(url, {
         headers: {
           'content-type' : 'application/json',
-          authorization: `bearer ${localStorage.getItem('accessToken')}`
+          authorization: `bearer ${localStorage.getItem('yourMoto_Token')}`
         }
       });
       console.log(res);

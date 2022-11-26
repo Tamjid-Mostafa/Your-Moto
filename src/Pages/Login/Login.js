@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { BsGoogle } from "react-icons/bs";
 import PrimaryButton from "../../Component/Button/PrimaryButton";
-
+import { setAuthToken } from "../../api/auth";
 const Login = () => {
   const { 
     signIn, 
@@ -18,17 +18,13 @@ const Login = () => {
 } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
 
-  // const [loginUserEmail, setLoginUserEmail] = useState("");
-  // const [token] = useToken(loginUserEmail);
-
+  
   const location = useLocation();
   const navigate = useNavigate();
-
+  
   const from = location.state?.from?.pathname || "/";
+  
 
-  // if(token){
-  //   navigate(from, {replace: true});
-  // }
 
   const {
     register,
@@ -42,8 +38,7 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     providerGoogleSignIn(googleProvider)
       .then((result) => {
-        const user = result.user;
-        console.log(user);
+        setAuthToken(result.user)
         toast.success("Log In Successfully.");
         navigate(from, { replace: true });
       })
@@ -53,10 +48,10 @@ const Login = () => {
 
   /* -----------------Login Handle------------------ */
   const handleLogin = (data) => {
-    console.log(data);
     setLoginError("");
     signIn(data.email, data.password)
       .then((result) => {
+        setAuthToken(result.user)
         const user = result.user;
         console.log(user.email);
         navigate(from, {replace: true});

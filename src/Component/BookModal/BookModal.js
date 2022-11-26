@@ -1,23 +1,26 @@
-import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthProvider";
-import { BsGoogle } from "react-icons/bs";
-import PrimaryButton from "../../Component/Button/PrimaryButton";
-import axios from "axios";
-import { setAuthToken } from "../../api/auth";
+import { Dialog, Transition } from '@headlessui/react'
+import axios from 'axios';
+import { Fragment, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import PrimaryButton from '../Button/PrimaryButton'
 
-const Signup = () => {
-  const { providerGoogleSignIn, providerCreateUser, updateUserProfile } =
-    useContext(AuthContext);
 
-  const [signupError, setSignupError] = useState("");
+const BookModal = ({openModal,closeModal, isOpen, setIsOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
 
+  const [item, setItem] = useState("");
+
+  useEffect(()=>{
+    fetch(`http://localhost:5000/products?id=${""}`)
+    .then(res => res.json())
+    .then(data => {
+      setItem(data);
+    })
+  },[])
 
 
   const {
@@ -26,104 +29,71 @@ const Signup = () => {
     handleSubmit,
   } = useForm();
 
-  /* -----------------Google Signin------------------ */
-  const googleProvider = new GoogleAuthProvider();
-  const handleGoogleSignIn = () => {
-    providerGoogleSignIn(googleProvider)
-      .then((result) => {
-        const user = result.user;
-        toast.success("Log In Successfully.");
-        navigate(from, { replace: true });
-      })
-      .catch((error) => console.error(error));
-  };
+  const handleBook = (data) =>{
+  const itemInfo = {
+    name: data.name,
+    email: data.email,
+    role: data.buyer_or_seller,
+    image: data.url
+  }
+  axios.post("http://localhost:5000/booked-items", itemInfo)
+  .then(res => {
+          
+    toast.success(`${itemInfo.name} is booked successfully`);
+    
+    navigate(from, { replace: true });
 
-  const handleSignUp = (data) => {
-    setSignupError("");
-
-    /* ----Upload Image---- */
-    const image = data.image[0];
-    const formData = new FormData();
-    formData.append("image", image);
-    const url = `https://api.imgbb.com/1/upload?key=527cb8c6aafc33970b1b5fa05f4bc3ac`;
-    fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((imageData) => {
-        /* ----Create USer--- */
-        providerCreateUser(data.email, data.password)
-          .then((result) => {
-            const userInfo = {
-              displayName: data.name,
-              photoURL: imageData.data.display_url,
-            };
-            updateUserProfile(userInfo)
-              .then(() => {})
-              .catch((err) => {
-                console.error(err);
-                setSignupError(err.message);
-              });
-
-            if (imageData.success) {
-              const userInfo = {
-                name: data.name,
-                email: data.email,
-                role: data.buyer_or_seller,
-                image: imageData.data.url,
-              };
-              // save user information to the database
-              axios
-                .post(
-                  "http://localhost:5000/users",
-
-                  userInfo
-                )
-                .then((res) => {
-                  toast.success(`${userInfo.name} is added successfully`);
-                  setAuthToken(userInfo)
-                  navigate(from, { replace: true });
-                })
-                .catch((err) => {
-                  console.error(err);
-                });
-            }
-          })
-          .catch((error) => console.error(error));
-      });
-  };
+  })
+  .catch(err => {
+    console.error(err);
+  })
+  
+}
 
   return (
     <>
-      <div className="m-auto xl:container px-12 sm:px-0 mx-auto">
-        <div className="mx-auto h-full sm:w-max">
-          <div className="m-auto  py-12">
-            <div className="mt-12 rounded-3xl border bg-gray-50 dark:border-gray-700 dark:bg-gray-800 -mx-6 sm:-mx-10 p-8 sm:p-10">
-              <h3 className="text-2xl font-semibold text-gray-700 dark:text-white">
-                Login to your account
-              </h3>
-              <div className="mt-12">
-                <button
-                  onClick={handleGoogleSignIn}
-                  className="w-full h-11 rounded-full border border-gray-300/75 bg-white px-6 transition active:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-800 dark:hover:border-gray-700"
-                >
-                  <div className="w-max mx-auto flex items-center justify-center space-x-1">
-                    <BsGoogle className="text-white" />
-                    <span className="block w-max text-sm font-semibold tracking-wide text-cyan-700 dark:text-white">
-                      oogle
-                    </span>
-                  </div>
-                </button>
-              </div>
+      
 
-              <form
-                onSubmit={handleSubmit(handleSignUp)}
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/60 bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Payment successful
+                  </Dialog.Title>
+                  <form
+                onSubmit={handleSubmit(handleBook)}
                 action=""
                 className="mt-10 space-y-8 dark:text-white"
               >
                 <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                   <input
+                  disabled
                     id=""
                     type="text"
                     {...register("name", {
@@ -201,13 +171,6 @@ const Signup = () => {
                       </p>
                     )}
                   </div>
-                  <div>
-                    {signupError && (
-                      <p className="text-red-600">
-                        {signupError.slice(22, -2)}
-                      </p>
-                    )}
-                  </div>
                   <button type="reset" className="-mr-3 w-max p-3">
                     <span className="text-sm tracking-wide text-sky-600 dark:text-sky-400">
                       Already have an account?{" "}
@@ -218,37 +181,22 @@ const Signup = () => {
                   </button>
                 </div>
 
-                <div>
-                  <PrimaryButton className="w-11">
+                <div className="mt-4">
+                  <PrimaryButton type="button" onClick={closeModal} className="w-11">
                     <span className="text-base font-semibold text-white dark:text-gray-900">
                       Sign Up
                     </span>
                   </PrimaryButton>
                 </div>
               </form>
-            </div>
-            <div className="border-t pt-12 text-gray-500 dark:border-gray-800">
-              <div className="space-x-4 text-center">
-                <span>Your Moto</span>
-                <Link
-                  href="#"
-                  className="text-sm hover:text-sky-900 dark:hover:text-gray-300"
-                >
-                  Contact
-                </Link>
-                <Link
-                  href="#"
-                  className="text-sm hover:text-sky-900 dark:hover:text-gray-300"
-                >
-                  Privacy & Terms
-                </Link>
-              </div>
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
           </div>
-        </div>
-      </div>
+        </Dialog>
+      </Transition>
     </>
-  );
-};
+  )
+}
 
-export default Signup;
+export default BookModal;

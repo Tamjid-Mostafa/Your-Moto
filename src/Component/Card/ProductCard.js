@@ -2,8 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
 import PrimaryButton from "../Button/PrimaryButton";
+import BookModal from "../BookModal/BookModal";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, closeModal,
+  openModal,
+  isOpen,
+  setIsOpen }) => {
   const {
     product_name,
     bike_type,
@@ -49,7 +53,7 @@ const ProductCard = ({ product }) => {
         </div>
         <div className="flex justify-between mt-2.5 ">
           <div className="flex items-center mt-2.5 mb-5">
-            <span className=" text-accent text-xs font-semibold mr-2 px-0.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+            <span className=" text-accent text-xs font-semibold mr-2 px-0.5 py-0.5 dark:text-white">
               Location: {location}
             </span>
           </div>
@@ -88,15 +92,19 @@ const ProductCard = ({ product }) => {
               />
             </svg>
 
-            <span className="text-gray-300 text-xs font-semibold mr-2 px-0.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+            <span className="text-gray-300 text-xs font-semibold mr-2 px-0.5 py-0.5  dark:text-blue-500">
               verified
             </span>
           </div>
-          <PrimaryButton>
-            <Link to="#" className="">
+          <PrimaryButton
+          >
+            <Link to="#" 
+            onClick={openModal}
+            className="">
               Book
             </Link>
           </PrimaryButton>
+          
         </div>
       </div>
     </div>
