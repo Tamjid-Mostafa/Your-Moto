@@ -59,6 +59,10 @@ const AddProduct = () => {
             location: data.location,
             image: imageData.data.url,
             postedTime: time,
+            years_of_use: data.years_of_use,
+            purchase_year: data.purchase_year,
+            sellerName: user.displayName,
+            sellerEmail: user.email
             
 
           };
@@ -66,7 +70,7 @@ const AddProduct = () => {
           axios
             .post("http://localhost:5000/products", product)
             .then((res) => {
-              toast.success(`${product.product_name} is added successfully`);
+              toast.success(`${product.product_name} is added successfully by ${user.displayName}`);
             //   navigate(from, { replace: true });
               console.log(res);
             })
@@ -125,7 +129,7 @@ const AddProduct = () => {
                   className="select select-bordered 
                 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 >
-                  \<option value="excellent">Excellent</option>
+                  <option value="excellent">Excellent</option>
                   <option value="good">Good</option>
                   <option value="fair">Fair</option>
                 </select>
@@ -168,8 +172,8 @@ const AddProduct = () => {
                   })}
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-last-name"
-                  type="text"
-                  placeholder="$"
+                  type="number"
+                  placeholder="0000"
                 />
                 {errors.resell_price && (
                   <p className="text-red-500">{errors.resell_price.message}</p>
@@ -190,8 +194,8 @@ const AddProduct = () => {
                   })}
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-password"
-                  type="text"
-                  placeholder="$"
+                  type="number"
+                  placeholder="0000"
                 />
                 {errors.original_price && (
                   <p className="text-red-500">
@@ -214,11 +218,33 @@ const AddProduct = () => {
                   })}
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-password"
-                  type="text"
+                  type="number"
                   placeholder="2022"
                 />
                 {errors.purchase_year && (
                   <p className="text-red-500">{errors.purchase_year.message}</p>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full px-3">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Years of Use
+                </label>
+                <input
+                  {...register("years_of_use", {
+                    required: "Please provide Years of Use",
+                  })}
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="grid-password"
+                  type="number"
+                  placeholder="00"
+                />
+                {errors.years_of_use && (
+                  <p className="text-red-500">{errors.years_of_use.message}</p>
                 )}
               </div>
             </div>
@@ -236,8 +262,8 @@ const AddProduct = () => {
                   })}
                   className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-password"
-                  type="text"
-                  placeholder="2000 miles"
+                  type="number"
+                  placeholder="0000"
                 />
                 {errors.mileage && (
                   <p className="text-red-500">{errors.mileage.message}</p>

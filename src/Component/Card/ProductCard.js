@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
+import PrimaryButton from "../Button/PrimaryButton";
 
 const ProductCard = ({ product }) => {
   const {
@@ -14,6 +15,10 @@ const ProductCard = ({ product }) => {
     location,
     image,
     postedTime,
+    years_of_use,
+    purchase_year,
+    sellerName,
+    sellerEmail,
   } = product;
   return (
     <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -26,25 +31,72 @@ const ProductCard = ({ product }) => {
             {product_name}
           </h5>
         </Link>
-        <div className="flex items-center mt-2.5 mb-5">
-          <AiFillStar />
-          <AiFillStar />
-          <AiFillStar />
-          <AiFillStar />
-          <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-            5.0
-          </span>
+        <div className="flex justify-between mt-2.5 ">
+          <div className="flex items-center mt-2.5">
+            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+              Posted: {postedTime}
+            </span>
+          </div>
+          <div className="flex items-center mt-2.5 text-primary">
+            <AiFillStar />
+            <AiFillStar />
+            <AiFillStar />
+            <AiFillStar />
+            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+              5.0
+            </span>
+          </div>
+        </div>
+        <div className="flex justify-between mt-2.5 ">
+          <div className="flex items-center mt-2.5 mb-5">
+            <span className=" text-accent text-xs font-semibold mr-2 px-0.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+              Location: {location}
+            </span>
+          </div>
+          <div className="flex items-center mt-2.5 mb-5">
+            <span className="text-sm">Years of Used: </span>
+            <span className="text-primary text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+              {years_of_use}
+            </span>
+          </div>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-3xl font-bold text-gray-900 dark:text-white">
-            $599
+            ${resell_price}
           </span>
-          <Link
-            to="#"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Booked
-          </Link>
+        </div>
+        <div className="flex justify-between items-center mt-2.5 mb-5">
+          <div className="flex items-center">
+            <div className="">
+              <span>Seller:</span>
+              <span className="text-primary uppercase text-xs font-semibold  px-1.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                {sellerName}
+              </span>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6 text-blue-500"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+              />
+            </svg>
+
+            <span className="text-gray-300 text-xs font-semibold mr-2 px-0.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+              verified
+            </span>
+          </div>
+          <PrimaryButton>
+            <Link to="#" className="">
+              Book
+            </Link>
+          </PrimaryButton>
         </div>
       </div>
     </div>
