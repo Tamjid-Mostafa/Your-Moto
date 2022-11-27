@@ -1,12 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { useContext, useState } from 'react';
-import toast from 'react-hot-toast';
-import Loader from '../../Component/Loader/Loader';
-import { AuthContext } from '../../contexts/AuthProvider';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import Loader from "../../Component/Loader/Loader";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const BuyerOrders = () => {
-    const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   /* const [deleteProduct, setDeleteProduct ] = useState(null); */
 
   /* Action Button Toggler */
@@ -32,13 +33,9 @@ const BuyerOrders = () => {
           },
         });
         return res.data;
-      } catch (error) {
-
-      }
+      } catch (error) {}
     },
   });
-  console.log(bookedItems);
-
 
   const handleAdvertise = (id) => {
     const url = `http://localhost:5000/bookedItems/${id}`;
@@ -76,8 +73,8 @@ const BuyerOrders = () => {
   if (isLoading) {
     return <Loader />;
   }
-    return (
-        <div className="relative flex justify-center mt-6">
+  return (
+    <div className="relative flex justify-center mt-6">
       <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -132,20 +129,19 @@ const BuyerOrders = () => {
                 <td className="py-4 px-6">{bookedItem?.bike_type}</td>
 
                 <td className="py-4 px-6">{bookedItem?.mileage} Kms</td>
-                <td className="py-4 px-6">
-                
-                    ${bookedItem?.resell_price}
-                </td>
+                <td className="py-4 px-6">${bookedItem?.resell_price}</td>
                 <td className="py-4 px-6">{bookedItem?.sellerName}</td>
                 <td className="py-4 px-6">
                   {bookedItem?.advertise !== true && (
-                    <button
-                      onClick={() => handleAdvertise(bookedItem?._id)}
-                      type="button"
-                      className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-2 py-0.5"
-                    >
-                      Pay
-                    </button>
+                    <Link to={`/dashboard/payment/${bookedItem?._id}`}>
+                      <button
+                        onClick={() => handleAdvertise(bookedItem?._id)}
+                        type="button"
+                        className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-2 py-0.5"
+                      >
+                        Pay
+                      </button>
+                    </Link>
                   )}
                 </td>
                 <td className="py-4 px-6">
@@ -163,7 +159,7 @@ const BuyerOrders = () => {
         </table>
       </div>
     </div>
-    );
+  );
 };
 
 export default BuyerOrders;
