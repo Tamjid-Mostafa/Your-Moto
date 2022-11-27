@@ -5,7 +5,7 @@ import Header from "../Pages/Shared/Header/Header";
 
 const Main = () => {
   return (
-    <div className="h-screen">
+    <div className="">
       <Header></Header>
       <Outlet></Outlet>
       <Footer></Footer>

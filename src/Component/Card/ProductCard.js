@@ -1,15 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
 import PrimaryButton from "../Button/PrimaryButton";
 import BookModal from "../BookModal/BookModal";
+import Loader from "../Loader/Loader";
 
-const ProductCard = ({ product, closeModal,
+const ProductCard = ({
+  product,
+  closeModal,
   openModal,
   isOpen,
   setIsOpen,
   item,
-  setItem }) => {
+  setItem,
+}) => {
   const {
     product_name,
     bike_type,
@@ -27,9 +31,15 @@ const ProductCard = ({ product, closeModal,
     sellerEmail,
   } = product;
 
-  function openSetModal (){
+  // const navigation = useNavigation();
+
+  // if ((navigation.state = "loading")) {
+  //   return <Loader />;
+  // }
+
+  function openSetModal() {
     setItem(product);
-    openModal()
+    openModal();
   }
 
   return (
@@ -104,17 +114,12 @@ const ProductCard = ({ product, closeModal,
               verified
             </span>
           </div>
-          <label htmlFor=""
-          onClick={openSetModal}
-          >
-          <PrimaryButton
-          >
-            <Link to="#" 
-            
-            className="">
-              Book
-            </Link>
-          </PrimaryButton>
+          <label  htmlFor="" onClick={openSetModal}>
+            <PrimaryButton>
+              <Link to="#" className="">
+                Book
+              </Link>
+            </PrimaryButton>
           </label>
         </div>
       </div>

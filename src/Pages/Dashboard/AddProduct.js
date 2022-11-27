@@ -93,7 +93,7 @@ const AddProduct = () => {
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-first-name"
+                   htmlFor="grid-first-name"
                 >
                   Bike Type
                 </label>
@@ -118,7 +118,7 @@ const AddProduct = () => {
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-first-name"
+                   htmlFor="grid-first-name"
                 >
                   Condition
                 </label>
@@ -140,7 +140,7 @@ const AddProduct = () => {
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-first-name"
+                   htmlFor="grid-first-name"
                 >
                   Motorcycle Name
                 </label>
@@ -162,7 +162,7 @@ const AddProduct = () => {
               <div className="w-full md:w-1/2 px-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-last-name"
+                   htmlFor="grid-last-name"
                 >
                   Resell Price
                 </label>
@@ -184,7 +184,7 @@ const AddProduct = () => {
               <div className="w-full px-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
+                   htmlFor="grid-password"
                 >
                   Original Price
                 </label>
@@ -208,7 +208,7 @@ const AddProduct = () => {
               <div className="w-full px-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
+                   htmlFor="grid-password"
                 >
                   Years of Purchase
                 </label>
@@ -230,7 +230,7 @@ const AddProduct = () => {
               <div className="w-full px-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
+                   htmlFor="grid-password"
                 >
                   Years of Use
                 </label>
@@ -252,7 +252,7 @@ const AddProduct = () => {
               <div className="w-full px-3">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
+                   htmlFor="grid-password"
                 >
                   Mileage
                 </label>
@@ -273,9 +273,8 @@ const AddProduct = () => {
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full px-3">
                 <label
-                  for="message"
-                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   htmlFor="description"
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                 >
                   Write about your Motorcycle
                 </label>
@@ -298,7 +297,7 @@ const AddProduct = () => {
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-city"
+                   htmlFor="grid-city"
                 >
                   Location
                 </label>
@@ -318,7 +317,7 @@ const AddProduct = () => {
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-zip"
+                   htmlFor="grid-zip"
                 >
                   Upload Picture
                 </label>

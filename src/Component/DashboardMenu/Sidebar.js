@@ -39,7 +39,7 @@ const Sidebar = ({ role, loading }) => {
       </div>
       {/* Sidebar */}
       <div
-        className={` absolute flex flex-col justify-between overflow-x-hidden  border-none bg-white px-6 pb-3 transition duration-300 md:w-3/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%] dark:bg-gray-800 dark:border-gray-700 w-64 space-y-6 py-4 top-14 bottom-0   left-0 transform ${
+        className={` absolute flex flex-col justify-between overflow-x-hidden  border-none bg-white px-6 pb-3 transition duration-300 md:w-3/12 lg:ml-0 lg:w-[20%] xl:w-[20%] 2xl:w-[20%] dark:bg-gray-800 dark:border-gray-700 w-64 space-y-6 py-4 top-14 bottom-0   left-0 transform ${
           isActive && "-translate-x-full"
         }  md:translate-x-0  transition duration-200 ease-in-out`}
       >
@@ -53,14 +53,11 @@ const Sidebar = ({ role, loading }) => {
             <h5 className="mt-4 hidden text-xl font-semibold text-gray-600 lg:block dark:text-gray-300">
               {user?.displayName}
             </h5>
-            <span className="hidden text-gray-400 lg:block">{user?.email}</span>
+            <span className="hidden text-gray-400 lg:block capitalize first-letter:font-semibold first-letter:text-primary">{role}</span>
           </div>
 
-          {role && role !== "" ? (
-            <>{role === "admin" ? <AdminMenu /> : <SellerMenu />} </>
-          ) : (
-            <BuyerMenu />
-          )}
+          {role && role === "buyer"? 
+             <BuyerMenu /> : <>{role === "seller" ? <SellerMenu /> : <AdminMenu />} </> }
         </div>
 
         <div className="-mx-6 flex items-center justify-between border-t px-6 pt-4 dark:border-gray-700">

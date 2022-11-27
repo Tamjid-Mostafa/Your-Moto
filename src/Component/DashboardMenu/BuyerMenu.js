@@ -8,7 +8,7 @@ const BuyerMenu = () => {
       <ul className="mt-8 space-y-2 tracking-wide">
         <li>
           <Link
-            to="/dashboard/addproduct"
+            to="/dashboard/orders"
             className="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600 dark:text-gray-300"
           >
             <MdShoppingCart className="h-5 w-5" />

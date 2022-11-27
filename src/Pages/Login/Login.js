@@ -7,24 +7,22 @@ import { AuthContext } from "../../contexts/AuthProvider";
 import { BsGoogle } from "react-icons/bs";
 import PrimaryButton from "../../Component/Button/PrimaryButton";
 import { setAuthToken } from "../../api/auth";
+import axios from "axios";
 const Login = () => {
-  const { 
-    signIn, 
+  const {
+    signIn,
     user,
     loading,
     setLoading,
     providerGoogleSignIn,
     providerForgotPassword,
-} = useContext(AuthContext);
+  } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
 
-  
   const location = useLocation();
   const navigate = useNavigate();
-  
-  const from = location.state?.from?.pathname || "/";
-  
 
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -33,31 +31,49 @@ const Login = () => {
   } = useForm();
 
   /* -----------------Google Signin------------------ */
-
   const googleProvider = new GoogleAuthProvider();
   const handleGoogleSignIn = () => {
     providerGoogleSignIn(googleProvider)
       .then((result) => {
-        setAuthToken(result.user)
-        toast.success("Log In Successfully.");
-        navigate(from, { replace: true });
+        const user = result.user;
+        if (user.uid) {
+          const userInfo = {
+            name: user.displayName,
+            email: user.email,
+            role: "buyer",
+          };
+          /* ================ User Info Save To DataBase =========== */
+          axios
+            .post(
+              "http://localhost:5000/users",
+
+              userInfo
+            )
+            .then((res) => {
+              const firstname = userInfo.name.split(" ")[0];
+              toast.success(`Hello! ${firstname}
+              Thank you for interest in Your Moto. `);
+              setAuthToken(userInfo);
+              navigate(from, { replace: true });
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
       })
       .catch((error) => console.error(error));
   };
-  
 
   /* -----------------Login Handle------------------ */
   const handleLogin = (data) => {
     setLoginError("");
     signIn(data.email, data.password)
       .then((result) => {
-        setAuthToken(result.user)
+        setAuthToken(result.user);
         const user = result.user;
-        console.log(user.email);
-        navigate(from, {replace: true});
+        navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.error(error);
         setLoginError(error.message);
       });
   };
@@ -72,8 +88,9 @@ const Login = () => {
               </h3>
               <div className="mt-12">
                 <button
-                onClick={handleGoogleSignIn}
-                className="w-full h-11 rounded-full border border-gray-300/75 bg-white px-6 transition active:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-800 dark:hover:border-gray-700">
+                  onClick={handleGoogleSignIn}
+                  className="w-full h-11 rounded-full border border-gray-300/75 bg-white px-6 transition active:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-800 dark:hover:border-gray-700"
+                >
                   <div className="w-max mx-auto flex items-center justify-center space-x-4">
                     <BsGoogle />
                     <span className="block w-max text-sm font-semibold tracking-wide text-cyan-700 dark:text-white">
@@ -140,15 +157,18 @@ const Login = () => {
                 </div>
 
                 <div>
-                <div>
-                  <PrimaryButton className="w-11">
-                    <span className="text-base font-semibold text-white dark:text-gray-900">
-                      Log In
-                    </span>
-                  </PrimaryButton>
-                </div>
+                  <div>
+                    <PrimaryButton className="w-11">
+                      <span className="text-base font-semibold text-white dark:text-gray-900">
+                        Log In
+                      </span>
+                    </PrimaryButton>
+                  </div>
                   <button href="#" type="reset" className="-ml-3 w-max p-3">
-                    <Link to='/signup' className="text-sm tracking-wide text-sky-600 dark:text-sky-400">
+                    <Link
+                      to="/signup"
+                      className="text-sm tracking-wide text-sky-600 dark:text-sky-400"
+                    >
                       Create new account
                     </Link>
                   </button>

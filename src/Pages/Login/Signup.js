@@ -18,8 +18,6 @@ const Signup = () => {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
 
-
-
   const {
     register,
     formState: { errors },
@@ -32,8 +30,32 @@ const Signup = () => {
     providerGoogleSignIn(googleProvider)
       .then((result) => {
         const user = result.user;
-        toast.success("Log In Successfully.");
-        navigate(from, { replace: true });
+        if (user.uid) {
+          const userInfo = {
+            name: user.displayName,
+            email: user.email,
+            role: "buyer",
+          };
+
+          console.log(userInfo);
+          /* ================ User Info Save To DataBase =========== */
+          axios
+            .post(
+              "http://localhost:5000/users",
+
+              userInfo
+            )
+            .then((res) => {
+              const firstname = userInfo.name.split(" ")[0];
+              toast.success(`Hello! ${firstname}
+              Thank you for interest in Your Moto. `);
+              setAuthToken(userInfo);
+              navigate(from, { replace: true });
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        }
       })
       .catch((error) => console.error(error));
   };
@@ -73,7 +95,7 @@ const Signup = () => {
                 role: data.buyer_or_seller,
                 image: imageData.data.url,
               };
-              // save user information to the database
+              /* ================ User Info Save To DataBase =========== */
               axios
                 .post(
                   "http://localhost:5000/users",
@@ -81,8 +103,10 @@ const Signup = () => {
                   userInfo
                 )
                 .then((res) => {
-                  toast.success(`${userInfo.name} is added successfully`);
-                  setAuthToken(userInfo)
+                  const firstname = userInfo.name.split(" ")[0];
+                  toast.success(`Hello! ${firstname}
+                  Thank you for interest in Your Moto. `);
+                  setAuthToken(userInfo);
                   navigate(from, { replace: true });
                 })
                 .catch((err) => {
@@ -97,21 +121,21 @@ const Signup = () => {
   return (
     <>
       <div className="m-auto xl:container px-12 sm:px-0 mx-auto">
-        <div className="mx-auto h-full sm:w-max">
+        <div className="mx-auto sm:w-max">
           <div className="m-auto  py-12">
             <div className="mt-12 rounded-3xl border bg-gray-50 dark:border-gray-700 dark:bg-gray-800 -mx-6 sm:-mx-10 p-8 sm:p-10">
               <h3 className="text-2xl font-semibold text-gray-700 dark:text-white">
-                Login to your account
+                Create a Account
               </h3>
               <div className="mt-12">
                 <button
                   onClick={handleGoogleSignIn}
                   className="w-full h-11 rounded-full border border-gray-300/75 bg-white px-6 transition active:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-800 dark:hover:border-gray-700"
                 >
-                  <div className="w-max mx-auto flex items-center justify-center space-x-1">
-                    <BsGoogle className="text-white" />
+                  <div className="w-max mx-auto flex items-center justify-center space-x-4">
+                    <BsGoogle />
                     <span className="block w-max text-sm font-semibold tracking-wide text-cyan-700 dark:text-white">
-                      oogle
+                      With Google
                     </span>
                   </div>
                 </button>

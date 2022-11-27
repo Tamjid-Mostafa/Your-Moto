@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { getRole } from "../../api/user";
-import Sidebar from "../../Component/Dashboard/Sidebar";
+import Sidebar from "../../Component/DashboardMenu/Sidebar";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const DashboardHome = () => {
@@ -23,7 +23,9 @@ const DashboardHome = () => {
         ''
       ) : (
         <>
-          <Sidebar role={role} />
+
+          <Sidebar role={role} />\
+
           <div className='flex-1  md:ml-64'>
             <div className='p-5'>
               <Outlet />

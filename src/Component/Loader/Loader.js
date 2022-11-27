@@ -3,7 +3,7 @@ import { PropagateLoader } from 'react-spinners'
 
 const Loader = () => {
     return (
-        <div className='h-screen flex justify-center items-center'>
+        <div className='min-h-screen flex justify-center items-center'>
         <PropagateLoader color="#E6A84C" />
       </div>
     );
