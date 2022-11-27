@@ -7,7 +7,9 @@ import BookModal from "../BookModal/BookModal";
 const ProductCard = ({ product, closeModal,
   openModal,
   isOpen,
-  setIsOpen }) => {
+  setIsOpen,
+  item,
+  setItem }) => {
   const {
     product_name,
     bike_type,
@@ -24,6 +26,12 @@ const ProductCard = ({ product, closeModal,
     sellerName,
     sellerEmail,
   } = product;
+
+  function openSetModal (){
+    setItem(product);
+    openModal()
+  }
+
   return (
     <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
       <Link to="#">
@@ -96,15 +104,18 @@ const ProductCard = ({ product, closeModal,
               verified
             </span>
           </div>
+          <label htmlFor=""
+          onClick={openSetModal}
+          >
           <PrimaryButton
           >
             <Link to="#" 
-            onClick={openModal}
+            
             className="">
               Book
             </Link>
           </PrimaryButton>
-          
+          </label>
         </div>
       </div>
     </div>

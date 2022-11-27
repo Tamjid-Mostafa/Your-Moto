@@ -5,7 +5,7 @@ import ProductCard from "../../Component/Card/ProductCard";
 
 const ProductListing = () => {
   const products = useLoaderData();
-
+  const [item, setItem] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -14,7 +14,10 @@ const ProductListing = () => {
 
   function openModal() {
     setIsOpen(true);
+    
   }
+
+
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
@@ -42,6 +45,8 @@ const ProductListing = () => {
                 openModal={openModal}
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
+                item={item}
+                setItem={setItem}
               ></ProductCard>
             ))}
           </div>
@@ -50,6 +55,8 @@ const ProductListing = () => {
             openModal={openModal}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
+            item={item}
+            setItem={setItem}
           ></BookModal>
         </div>
       </div>
