@@ -32,9 +32,13 @@ const BuyerOrders = () => {
           },
         });
         return res.data;
-      } catch (error) {}
+      } catch (error) {
+
+      }
     },
   });
+  console.log(bookedItems);
+
 
   const handleAdvertise = (id) => {
     const url = `http://localhost:5000/bookedItems/${id}`;
@@ -54,17 +58,17 @@ const BuyerOrders = () => {
       });
   };
 
-  const handleDeleteProduct = (product) => {
-    fetch(`http://localhost:5000/delete_product/${product?._id}`, {
+  const handleDeleteBooking = (bookedItem) => {
+    fetch(`http://localhost:5000/deletebooked/${bookedItem?._id}`, {
       method: "DELETE",
       headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        authorization: `bearer ${localStorage.getItem("yourMoto_Token")}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
-          toast.success(`${product?.product_name} Deleted Successfully`);
+          toast.success(`${bookedItem?.bikeName} Deleted Successfully`);
           refetch();
         }
       });
@@ -91,10 +95,10 @@ const BuyerOrders = () => {
                 Resell Price
               </th>
               <th scope="col" className="py-3 px-6">
-                Original Price
+                Seller
               </th>
               <th scope="col" className="py-3 px-6">
-                Advertise
+                Pay
               </th>
               <th scope="col" className="py-3 px-6">
                 Delete
@@ -114,14 +118,14 @@ const BuyerOrders = () => {
                   <img
                     className="w-10 h-10 rounded-full"
                     src={bookedItem?.image}
-                    alt={bookedItem?.product_name}
+                    alt={bookedItem?.bikeName}
                   />
                   <div className="pl-3">
                     <div className="text-base font-semibold">
-                      {bookedItem?.product_name}
+                      {bookedItem?.bikeName}
                     </div>
                     <div className="font-normal text-gray-500">
-                      Posted: {bookedItem?.postedTime}
+                      Meeting Place: {bookedItem?.meeting_location}
                     </div>
                   </div>
                 </th>
@@ -129,27 +133,26 @@ const BuyerOrders = () => {
 
                 <td className="py-4 px-6">{bookedItem?.mileage} Kms</td>
                 <td className="py-4 px-6">
-                  <div className="flex items-center">
+                
                     ${bookedItem?.resell_price}
-                  </div>
                 </td>
-                <td className="py-4 px-6">{bookedItem?.bike_type}</td>
+                <td className="py-4 px-6">{bookedItem?.sellerName}</td>
                 <td className="py-4 px-6">
                   {bookedItem?.advertise !== true && (
                     <button
                       onClick={() => handleAdvertise(bookedItem?._id)}
                       type="button"
-                      className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2 py-0.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                      className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-2 py-0.5"
                     >
-                      Advertise
+                      Pay
                     </button>
                   )}
                 </td>
                 <td className="py-4 px-6">
                   <button
-                    onClick={() => handleDeleteProduct(bookedItem)}
+                    onClick={() => handleDeleteBooking(bookedItem)}
                     type="button"
-                    className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-0.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                    className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 rounded-lg text-sm px-2 py-0.5"
                   >
                     Delete
                   </button>

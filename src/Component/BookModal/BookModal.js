@@ -15,9 +15,6 @@ const BookModal = ({
 }) => {
   const { user, loading, setloading } = useContext(AuthContext);
 
-
-
-
   const handleBook = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -27,6 +24,20 @@ const BookModal = ({
     const bike_price = form.price.value;
     const user_contact_no = form.contact.value;
     const meeting_location = form.location.value;
+    const product_name = item.product_name;
+    const bike_type = item.bike_type;
+    const condition = item.condition;
+    const resell_price = item.resell_price;
+    const original_price = item.original_price;
+    const mileage = item.mileage;
+    const description = item.description;
+    const location = item.location;
+    const image = item.image;
+    const postedTime = item.postedTime;
+    const years_of_use = item.years_of_use;
+    const purchase_year = item.purchase_year;
+    const sellerName = item.sellerName;
+    const sellerEmail = item.sellerEmail;
 
     const bookInfo = {
       bikeName: bikeName,
@@ -35,6 +46,19 @@ const BookModal = ({
       bike_price: bike_price,
       user_contact_no: user_contact_no,
       meeting_location: meeting_location,
+      bike_type,
+      condition,
+      resell_price,
+      original_price,
+      mileage,
+      description,
+      location,
+      image,
+      postedTime,
+      years_of_use,
+      purchase_year,
+      sellerName,
+      sellerEmail,
     };
     axios
       .post("http://localhost:5000/booked-items", bookInfo)
@@ -90,7 +114,7 @@ const BookModal = ({
                     <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                       <label
                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                         htmlFor="grid-first-name"
+                        htmlFor="grid-first-name"
                       >
                         Bike Name
                       </label>
@@ -107,7 +131,7 @@ const BookModal = ({
                     <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                       <label
                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                         htmlFor="grid-first-name"
+                        htmlFor="grid-first-name"
                       >
                         Your Name
                       </label>
@@ -124,7 +148,7 @@ const BookModal = ({
                     <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                       <label
                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                         htmlFor="grid-first-name"
+                        htmlFor="grid-first-name"
                       >
                         Email
                       </label>
@@ -141,7 +165,7 @@ const BookModal = ({
                     <div className="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                       <label
                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                         htmlFor="grid-first-name"
+                        htmlFor="grid-first-name"
                       >
                         Bike Price
                       </label>
@@ -157,7 +181,7 @@ const BookModal = ({
                     <div className="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                       <label
                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                         htmlFor="grid-first-name"
+                        htmlFor="grid-first-name"
                       >
                         Contact No.
                       </label>
@@ -172,7 +196,7 @@ const BookModal = ({
                     <div className="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                       <label
                         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                         htmlFor="grid-first-name"
+                        htmlFor="grid-first-name"
                       >
                         Meeting Location
                       </label>
@@ -185,7 +209,7 @@ const BookModal = ({
                       />
                     </div>
 
-                    <label  htmlFor="" onClick={closeModal}>
+                    <label htmlFor="" onClick={closeModal}>
                       <PrimaryButton type="button">
                         <span className="text-base font-semibold text-white dark:text-gray-900">
                           Book

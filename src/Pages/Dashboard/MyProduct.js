@@ -61,7 +61,7 @@ const MyProduct = () => {
     fetch(`http://localhost:5000/delete_product/${product?._id}`, {
       method: "DELETE",
       headers: {
-        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        authorization: `bearer ${localStorage.getItem("yourMoto_Token")}`,
       },
     })
       .then((res) => res.json())
@@ -143,7 +143,7 @@ const MyProduct = () => {
                     <button
                       onClick={() => handleAdvertise(product?._id)}
                       type="button"
-                      className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2 py-0.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                      className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-2 py-0.5"
                     >
                       Advertise
                     </button>
@@ -153,7 +153,7 @@ const MyProduct = () => {
                   <button
                     onClick={() => handleDeleteProduct(product)}
                     type="button"
-                    className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-0.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                    claclassName="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 rounded-lg text-sm px-2 py-0.5"
                   >
                     Delete
                   </button>

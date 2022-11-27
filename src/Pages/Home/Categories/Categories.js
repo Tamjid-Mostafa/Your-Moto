@@ -21,7 +21,6 @@ const Categories = () => {
           authorization: `bearer ${localStorage.getItem('yourMoto_Token')}`
         }
       });
-      console.log(res);
       return res.data;
     },
   });

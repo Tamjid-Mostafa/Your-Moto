@@ -4,7 +4,6 @@ import Main from "../Layout/Main";
 import AddProduct from "../Pages/Dashboard/AddProduct";
 import AllBuyer from "../Pages/Dashboard/AllBuyer";
 import BuyerOrders from "../Pages/Dashboard/BuyerOrders";
-import DashContainer from "../Pages/Dashboard/DashContainer";
 import MyProduct from "../Pages/Dashboard/MyProduct";
 import Categories from "../Pages/Home/Categories/Categories";
 import Home from "../Pages/Home/Home";
@@ -40,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/categories/:categoryName",
-        element: <ProductListing />,
+        element: <PrivateRoute><ProductListing /></PrivateRoute>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/categories/${params.categoryName}`),
       },
@@ -55,10 +54,6 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      {
-        path: "/dashboard",
-        element: <DashContainer/>
-      },
       {
         path: "/dashboard/addproduct",
         element: <SellerRoute><AddProduct /></SellerRoute>

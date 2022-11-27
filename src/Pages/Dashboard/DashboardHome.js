@@ -8,7 +8,7 @@ const DashboardHome = () => {
 
   const { user } = useContext(AuthContext)
   const [role, setRole] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     setLoading(true)
     getRole(user?.email).then(data => {
@@ -24,7 +24,7 @@ const DashboardHome = () => {
       ) : (
         <>
 
-          <Sidebar role={role} />\
+          <Sidebar role={role} />
 
           <div className='flex-1  md:ml-64'>
             <div className='p-5'>
