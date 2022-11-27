@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useRouteError } from 'react-router-dom';
 import PrimaryButton from '../../Component/Button/PrimaryButton';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const ErrorPage = () => {
+  const error = useRouteError();
  
     return (
         <div>
@@ -18,13 +19,18 @@ const ErrorPage = () => {
             Something's missing.
           </p>
           <p className="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
+            {error.statusText || error.message}
+          </p>
+          <p className="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
             Sorry, we can't find that page. You'll find lots to explore on the
             home page.{" "}
           </p>
+          <label htmlFor="" onClick={""}>
           <PrimaryButton
           >
                 <Link to="/">Go Back to Home</Link>
           </PrimaryButton>
+          </label>
         </div>
       </div>
     </section>
