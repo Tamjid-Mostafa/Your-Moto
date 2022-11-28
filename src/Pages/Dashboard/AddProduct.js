@@ -47,7 +47,6 @@ const AddProduct = () => {
           console.log(imageData.data.url);
           toast.success("uploaded");
           const time = new Date().toLocaleString();
-          console.log(time);
           const product = {
             product_name: data.motorcycle_name,
             bike_type: data.category,
