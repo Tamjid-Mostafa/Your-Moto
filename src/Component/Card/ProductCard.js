@@ -30,7 +30,8 @@ const ProductCard = ({
     purchase_year,
     sellerName,
     sellerEmail,
-    sellerVerify
+    sellerVerify,
+    booked,
   } = product;
 
   // const navigation = useNavigation();
@@ -47,23 +48,25 @@ const ProductCard = ({
   return (
     <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
       <PhotoProvider
-                      speed={() => 1000}
-                      easing={(type) =>
-                        type === 2
-                          ? "cubic-bezier(0.36, 0, 0.66, -0.56)"
-                          : "cubic-bezier(0.34, 1.56, 0.64, 1)"
-                      }
-                      maskOpacity={0.8}
-                    >
-                      <PhotoView src={image}>
-                        <img
-                          className="p-8 rounded-t-lg object-cover object-top transition-all duration-500 group-hover:rounded-xl" src={image} alt="product"
-                          loading="lazy"
-                          width="1000"
-                          height="667"
-                        />
-                      </PhotoView>
-                    </PhotoProvider>
+        speed={() => 1000}
+        easing={(type) =>
+          type === 2
+            ? "cubic-bezier(0.36, 0, 0.66, -0.56)"
+            : "cubic-bezier(0.34, 1.56, 0.64, 1)"
+        }
+        maskOpacity={0.8}
+      >
+        <PhotoView src={image}>
+          <img
+            className="p-8 rounded-t-lg object-cover object-top transition-all duration-500 group-hover:rounded-xl"
+            src={image}
+            alt="product"
+            loading="lazy"
+            width="1000"
+            height="667"
+          />
+        </PhotoView>
+      </PhotoProvider>
       <div className="px-5 pb-5">
         <Link to="#">
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
@@ -112,38 +115,47 @@ const ProductCard = ({
                 {sellerName}
               </span>
             </div>
-            {
-              !sellerVerify ? "Not Verified" 
-              : 
+            {!sellerVerify ? (
+              "Not Verified"
+            ) : (
               <>
-              <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 text-blue-500"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
-              />
-            </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6 text-blue-500"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                  />
+                </svg>
 
-            <span className="text-gray-300 text-xs font-semibold mr-2 px-0.5 py-0.5  dark:text-blue-500">
-              verified
-            </span>
+                <span className="text-gray-300 text-xs font-semibold mr-2 px-0.5 py-0.5  dark:text-blue-500">
+                  verified
+                </span>
               </>
-            }
+            )}
           </div>
-          <label  htmlFor="" onClick={openSetModal}>
-            <PrimaryButton>
-              <Link to="#" className="">
+
+          {!booked ? (
+            <label htmlFor="" onClick={openSetModal}>
+              {" "}
+              <button className="py-3 px-3 rounded-lg text-center transition bg-gradient-to-br from-yellow-500 to-orange-400 hover:to-yellow-600 md:px-8 text-white ">
                 Book
-              </Link>
-            </PrimaryButton>
-          </label>
+              </button>
+            </label>
+          ) : (
+            <button
+              disabled
+              className="text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 py-3 px-3 "
+            >
+              Booked
+            </button>
+          )}
         </div>
       </div>
     </div>
