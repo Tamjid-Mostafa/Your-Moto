@@ -30,6 +30,7 @@ const ProductCard = ({
     purchase_year,
     sellerName,
     sellerEmail,
+    sellerVerify
   } = product;
 
   // const navigation = useNavigation();
@@ -105,13 +106,17 @@ const ProductCard = ({
         </div>
         <div className="flex justify-between items-center mt-2.5 mb-5">
           <div className="flex items-center">
-            <div className="">
+            <div className="mr-3">
               <span>Seller:</span>
-              <span className="text-primary uppercase text-xs font-semibold  px-1.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+              <span className="text-primary uppercase text-xs font-semibold  px-1.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">
                 {sellerName}
               </span>
             </div>
-            <svg
+            {
+              !sellerVerify ? "Not Verified" 
+              : 
+              <>
+              <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -129,6 +134,8 @@ const ProductCard = ({
             <span className="text-gray-300 text-xs font-semibold mr-2 px-0.5 py-0.5  dark:text-blue-500">
               verified
             </span>
+              </>
+            }
           </div>
           <label  htmlFor="" onClick={openSetModal}>
             <PrimaryButton>

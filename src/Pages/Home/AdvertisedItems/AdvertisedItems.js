@@ -9,7 +9,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 
 const AdvertisedItems = () => {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const url = `http://localhost:5000/advertise`;
 
   /* Load Advertise Item  */

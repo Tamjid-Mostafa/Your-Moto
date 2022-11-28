@@ -5,30 +5,30 @@ import Loader from '../Component/Loader/Loader';
 import { AuthContext } from '../contexts/AuthProvider';
 
 const AdminRoute = ({children}) => {
-    const { user, loading } = useContext(AuthContext);
-    /* const [roleLoading, setRoleLoading] = useState(true); */
-    const [role, setRole] = useState(null)
+  const { user, loading} = useContext(AuthContext);
+  const [roleLoading, setRoleLoading] = useState(true);
+  const [role, setRole] = useState(null)
 
-    useEffect(() => {
-        /* setRoleLoading(true) */
-        getRole(user?.email).then(data => {
-          setRole(data)
-          /* setRoleLoading(false) */
-        })
-      }, [user])
+  useEffect(() => {
+      setRoleLoading(true)
+      getRole(user?.email).then(data => {
+        setRole(data)
+        setRoleLoading(false)
+      })
+    }, [user])
 
 
-      if (loading ) {
-        return (
-          <div className='min-h-screen'>
-            <Loader />
-          </div>
-        )
-      }
-      if (user && user.uid && role === 'admin') {
-        return children
-      }
-      return <Navigate to='/dashboard' />
+    if (loading || roleLoading) {
+      return (
+        <div className='min-h-screen'>
+          <Loader />
+        </div>
+      )
+    }
+    if (user && user.uid && role === 'admin') {
+      console.log(role)
+      return children
+    }
+    return <Navigate to='/' />
 };
-
 export default AdminRoute;
