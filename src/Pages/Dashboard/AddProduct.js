@@ -9,10 +9,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 
 const AddProduct = () => {
     const {user} = useContext(AuthContext);
-  const [signupError, setSignupError] = useState("");
-  const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -24,7 +21,7 @@ const AddProduct = () => {
   const { data: categories, isLoading } = useQuery({
     queryKey: ["category"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/categories");
+      const res = await axios.get("https://yourmoto-server-tamjid-mostafa.vercel.app/categories");
       return res.data;
     },
   });
@@ -32,11 +29,9 @@ const AddProduct = () => {
   /* ===Add Product Data to Database=== */
   const handleAddProduct = (data) => {
     const image = data.image[0];
-    console.log(image);
     const formData = new FormData();
     formData.append("image", image);
     const url = `https://api.imgbb.com/1/upload?key=${"527cb8c6aafc33970b1b5fa05f4bc3ac"}`;
-    console.log(url);
     fetch(url, {
       method: "POST",
       body: formData,
@@ -44,8 +39,6 @@ const AddProduct = () => {
       .then((res) => res.json())
       .then((imageData) => {
         if (imageData.success) {
-          console.log(imageData.data.url);
-          toast.success("uploaded");
           const time = new Date().toLocaleString();
           const product = {
             product_name: data.motorcycle_name,
@@ -67,11 +60,10 @@ const AddProduct = () => {
           };
           /* -----Save product to the----- */
           axios
-            .post("http://localhost:5000/products", product)
+            .post("https://yourmoto-server-tamjid-mostafa.vercel.app/products", product)
             .then((res) => {
               toast.success(`${product.product_name} is added successfully by ${user.displayName}`);
-            //   navigate(from, { replace: true });
-              console.log(res);
+              navigate("/dashboard/myproduct");
             })
             .catch((err) => {
               console.error(err);

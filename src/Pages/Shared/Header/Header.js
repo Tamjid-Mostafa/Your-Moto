@@ -84,9 +84,10 @@ const Header = () => {
   return (
     <>
       <Navbar
-        className=""
-        fluid={true}
+        className="relative"
+        fluid={false}
         rounded={false}
+        menuOpen={true}
       >
         <Navbar.Brand>
           <img
@@ -150,9 +151,11 @@ const Header = () => {
             </button>
           ))}
 
-          <Navbar.Toggle />
+          <Navbar.Toggle className="absolute top-16 left-0 right-0 z-10 bg-primary" />
         </div>
-        <Navbar.Collapse>
+        <Navbar.Collapse
+        className=""
+        >
           <Navbar.Link>
           <Link to="/">Home</Link>
           </Navbar.Link>

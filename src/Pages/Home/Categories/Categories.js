@@ -6,7 +6,7 @@ import Loader from "../../../Component/Loader/Loader";
 
 const Categories = () => {
   
-  const url = `http://localhost:5000/categories`;
+  const url = `https://yourmoto-server-tamjid-mostafa.vercel.app/categories`;
 
 
   /* Load Categories  */

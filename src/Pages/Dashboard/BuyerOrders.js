@@ -17,7 +17,7 @@ const BuyerOrders = () => {
   };
 
   /* Order Load */
-  const url = `http://localhost:5000/bookedItems?email=${user?.email}`;
+  const url = `https://yourmoto-server-tamjid-mostafa.vercel.app/bookedItems?email=${user?.email}`;
 
   const {
     data: bookedItems,
@@ -38,7 +38,7 @@ const BuyerOrders = () => {
   });
 
   const handleAdvertise = (id) => {
-    const url = `http://localhost:5000/bookedItems/${id}`;
+    const url = `https://yourmoto-server-tamjid-mostafa.vercel.app/bookedItems/${id}`;
     fetch(url, {
       method: "PUT",
       headers: {
@@ -56,7 +56,7 @@ const BuyerOrders = () => {
   };
 
   const handleDeleteBooking = (bookedItem) => {
-    fetch(`http://localhost:5000/deletebooked/${bookedItem?._id}`, {
+    fetch(`https://yourmoto-server-tamjid-mostafa.vercel.app/deletebooked/${bookedItem?._id}`, {
       method: "DELETE",
       headers: {
         authorization: `bearer ${localStorage.getItem("yourMoto_Token")}`,

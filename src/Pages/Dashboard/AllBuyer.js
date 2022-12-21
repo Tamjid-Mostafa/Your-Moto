@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Loader from "../../Component/Loader/Loader";
 
 const AllBuyer = () => {
-  const url = `http://localhost:5000/buyers`;
+  const url = `https://yourmoto-server-tamjid-mostafa.vercel.app/buyers`;
 
   /* Load buyer List  */
   const {
@@ -28,7 +28,7 @@ const AllBuyer = () => {
 
 //   /* ------Handle Verify buyer----- */
 //   const handleVerify = (email) => {
-//     const url = `http://localhost:5000/buyers/${email}`;
+//     const url = `https://yourmoto-server-tamjid-mostafa.vercel.app/buyers/${email}`;
 //     fetch(url, {
 //       method: "PUT",
 //       headers: {
@@ -47,7 +47,7 @@ const AllBuyer = () => {
 
   /* -----------Delete buyer------- */
   const handleDeletebuyer = (buyer) => {
-    fetch(`http://localhost:5000/users/${buyer?._id}`, {
+    fetch(`https://yourmoto-server-tamjid-mostafa.vercel.app/users/${buyer?._id}`, {
       method: "DELETE",
       headers: {
         authorization: `bearer ${localStorage.getItem("yourMoto_Token")}`,

@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const getRole = async email => {
     const response = await axios.get(
-      `http://localhost:5000/users/${email}`,
+      `https://yourmoto-server-tamjid-mostafa.vercel.app/users/${email}`,
       {
         headers: {
           /* authorization: `Bearer ${localStorage.getItem('')}`, */

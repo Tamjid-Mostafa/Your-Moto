@@ -1,7 +1,7 @@
 export const getPaymentIntent = async price => {
   console.log(price)
     const response = await fetch(
-      `http://localhost:5000/create-payment-intent`,
+      `https://yourmoto-server-tamjid-mostafa.vercel.app/create-payment-intent`,
       {
         method: 'POST',
         headers: {

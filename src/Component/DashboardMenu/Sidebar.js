@@ -39,7 +39,7 @@ const Sidebar = ({ role, loading }) => {
       </div>
       {/* Sidebar */}
       <div
-        className={` absolute flex flex-col justify-between overflow-x-hidden  border-none bg-white px-6 pb-3 transition duration-300 md:w-3/12 lg:ml-0 lg:w-[20%] xl:w-[20%] 2xl:w-[20%] dark:bg-gray-800 dark:border-gray-700 w-64 space-y-6 py-4 top-14 bottom-0   left-0 transform ${
+        className={` absolute flex flex-col justify-between overflow-x-hidden  border-none bg-white px-6 pb-3 transition duration-300 md:w-3/12 lg:ml-0 lg:w-[20%] xl:w-[20%] 2xl:w-[20%] dark:bg-gray-800 dark:border-gray-700 w-64 space-y-6 py-4 top-16 bottom-0   left-0 transform ${
           isActive && "-translate-x-full"
         }  md:translate-x-0  transition duration-200 ease-in-out`}
       >

@@ -75,7 +75,7 @@ const CheckoutForm = ({ booking }) => {
         user_email,
         bookingId: _id,
       };
-      fetch("http://localhost:5000/payments", {
+      fetch("https://yourmoto-server-tamjid-mostafa.vercel.app/payments", {
         method: "POST",
         headers: {
           "content-type": "application/json",

@@ -7,6 +7,7 @@ import AllBuyer from "../Pages/Dashboard/AllBuyer";
 import AllSeller from "../Pages/Dashboard/AllSeller";
 import BuyerOrders from "../Pages/Dashboard/BuyerOrders";
 import MyProduct from "../Pages/Dashboard/MyProduct";
+import ReportedItems from "../Pages/Dashboard/ReportedItems";
 import Categories from "../Pages/Home/Categories/Categories";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
         path: "/categories/:categoryName",
         element: <PrivateRoute><ProductListing /></PrivateRoute>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/categories/${params.categoryName}`),
+          fetch(`https://yourmoto-server-tamjid-mostafa.vercel.app/categories/${params.categoryName}`),
       },
     ],
   },
@@ -78,13 +79,17 @@ const router = createBrowserRouter([
         element: <AdminRoute><AllSeller /></AdminRoute>
       },
       {
+        path: "/dashboard/reportedItems",
+        element: <AdminRoute><ReportedItems /></AdminRoute>
+      },
+      {
         path: "/dashboard/orders",
         element: <PrivateRoute><BuyerOrders /></PrivateRoute>
       },
       {
         path: "/dashboard/payment/:id",
         element: <PrivateRoute><Payment /></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
+        loader: ({params}) => fetch(`https://yourmoto-server-tamjid-mostafa.vercel.app/bookings/${params.id}`)
       },
       
     ],

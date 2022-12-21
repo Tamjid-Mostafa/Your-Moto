@@ -61,7 +61,7 @@ const BookModal = ({
       sellerEmail,
     };
     axios
-      .post("http://localhost:5000/booked-items", bookInfo)
+      .post("https://yourmoto-server-tamjid-mostafa.vercel.app/booked-items", bookInfo)
       .then((res) => {
         if (res.statusText === "OK") {
           toast.success(`${bookInfo?.bikeName} is booked successfully`);

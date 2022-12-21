@@ -1,24 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { HiChevronDown } from "react-icons/hi";
 import toast from "react-hot-toast";
 import Loader from "../../Component/Loader/Loader";
+import AlertModal from "../../Component/AlertModal/AlertModal";
 
 const MyProduct = () => {
   const { user } = useContext(AuthContext);
-  /* const [deleteProduct, setDeleteProduct ] = useState(null); */
+  const [isOpen, setIsOpen] = useState(false);
 
-  /* Action Button Toggler */
-  const [isOpen, setIsOpen] = useState("false");
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+    
+  }
+
 
   /* Product Load */
-  const url = `http://localhost:5000/myproducts?email=${user?.email}`;
+  const url = `https://yourmoto-server-tamjid-mostafa.vercel.app/myproducts?email=${user?.email}`;
 
   const {
     data: myproducts,
@@ -33,14 +36,13 @@ const MyProduct = () => {
             authorization: `bearer ${localStorage.getItem("yourMoto_Token")}`,
           },
         });
-        const myproducts = res.data;
         return res.data;
       } catch (error) {}
     },
   });
 
   const handleAdvertise = (id) => {
-    const url = `http://localhost:5000/myproduct/advertise/${id}`;
+    const url = `https://yourmoto-server-tamjid-mostafa.vercel.app/myproduct/advertise/${id}`;
     fetch(url, {
       method: "PUT",
       headers: {
@@ -58,7 +60,7 @@ const MyProduct = () => {
   };
 
   const handleDeleteProduct = (product) => {
-    fetch(`http://localhost:5000/delete_product/${product?._id}`, {
+    fetch(`https://yourmoto-server-tamjid-mostafa.vercel.app/delete_product/${product?._id}`, {
       method: "DELETE",
       headers: {
         authorization: `bearer ${localStorage.getItem("yourMoto_Token")}`,
@@ -67,7 +69,7 @@ const MyProduct = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
-          toast.success(`Doctor ${product?.product_name} Deleted Successfully`);
+          toast.success(`${product?.product_name} Deleted Successfully`);
           refetch();
         }
       });
@@ -151,7 +153,7 @@ const MyProduct = () => {
                 </td>
                 <td className="py-4 px-6">
                   <button
-                    onClick={() => handleDeleteProduct(product)}
+                    onClick={openModal}
                     type="button"
                     className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 rounded-lg text-sm px-2 py-0.5"
                   >
@@ -162,6 +164,10 @@ const MyProduct = () => {
             ))}
           </tbody>
         </table>
+        <AlertModal
+        openModal={openModal}
+        closeModal={closeModal}
+        ></AlertModal>
       </div>
     </div>
   );

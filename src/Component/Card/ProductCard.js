@@ -1,10 +1,9 @@
 import React from "react";
-import { Link, useNavigation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
-import PrimaryButton from "../Button/PrimaryButton";
-import BookModal from "../BookModal/BookModal";
-import Loader from "../Loader/Loader";
 import { PhotoProvider, PhotoView } from "react-photo-view";
+import toast from "react-hot-toast";
+
 
 const ProductCard = ({
   product,
@@ -16,6 +15,7 @@ const ProductCard = ({
   setItem,
 }) => {
   const {
+    _id,
     product_name,
     bike_type,
     condition,
@@ -32,13 +32,26 @@ const ProductCard = ({
     sellerEmail,
     sellerVerify,
     booked,
+    report,
   } = product;
 
-  // const navigation = useNavigation();
-
-  // if ((navigation.state = "loading")) {
-  //   return <Loader />;
-  // }
+  /* -----------Report Item------ */
+  const submitReport = (id) => {
+    const url = `https://yourmoto-server-tamjid-mostafa.vercel.app/report/${id}`;
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("yourMoto_Token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("Reported Successfully");
+        }
+      });
+  };
 
   function openSetModal() {
     setItem(product);
@@ -58,7 +71,7 @@ const ProductCard = ({
       >
         <PhotoView src={image}>
           <img
-            className="p-8 rounded-t-lg object-cover object-top transition-all duration-500 group-hover:rounded-xl"
+            className="p-8 block rounded-t-lg object-cover object-top transition-all duration-500 group-hover:rounded-xl"
             src={image}
             alt="product"
             loading="lazy"
@@ -106,6 +119,21 @@ const ProductCard = ({
           <span className="text-3xl font-bold text-gray-900 dark:text-white">
             ${resell_price}
           </span>
+          {!report ? (
+            <button
+            onClick={() => submitReport(_id)}
+              className="text-xs font-thin text-gray-900 dark:text-white"
+            >
+              Report
+            </button>
+          ) : (
+            <button
+              disabled
+              className="text-xs font-thin text-gray-900 dark:text-white"
+            >
+              Reported
+            </button>
+          )}
         </div>
         <div className="flex justify-between items-center mt-2.5 mb-5">
           <div className="flex items-center">
